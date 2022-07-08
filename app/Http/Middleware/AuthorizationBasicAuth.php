@@ -19,7 +19,7 @@ class AuthorizationBasicAuth
     {
         $basic_auth = $request->header('authorization');
         $app = AuthorizationBasicAuthModel::firstWhere('basic', $basic_auth);
-        if ($app->basic == $basic_auth) {
+        if (isset($app->basic)) {
             return $next($request);
         } else {
             return response()->json([
