@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ZalandoOrderNotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('authorization.basic.auth')->post('orders', function (Request $request) {
-    return response()->json([
-        'success' => 'the authentication works',
-    ]);    
-});
+
+Route::middleware(['authorization.basic.auth'])->prefix('/orders')->group(function () {
+    Route::post('/notification', [ZalandoOrderNotificationController::class, 'store']);
+ });
