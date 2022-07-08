@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('username', 255);
             $table->string('password', 255);
             $table->string('basic', 255);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
