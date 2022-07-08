@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('state', 255);
             $table->string('store_id', 255);
             $table->string('timestamp', 255);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
