@@ -29,4 +29,9 @@ class ZalandoOrderNotification extends Model
     {
         return $this->hasOne(ZalandoDeliveryDetailsNotification::class);
     }
+
+    public function customer_billing_address()
+    {
+        return $this->hasOne(ZalandoCustomerBillingAddressNotification::class);
+    }
 }
