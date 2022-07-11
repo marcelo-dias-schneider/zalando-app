@@ -48,8 +48,8 @@ class ZalandoOrderNotificationController extends Controller
     {
         $this->model = $this->model->create($request->all());
         $this->model->items()->createMany($request->items);
-        $this->model->delivery_details()->create($request->delivery_details);
-        $this->model->customer_billing_address()->create($request->customer_billing_address);
+        if ($request->delivery_details) $this->model->delivery_details()->create($request->delivery_details);
+        if ($request->customer_billing_address) $this->model->customer_billing_address()->create($request->customer_billing_address);
     }
 
     /**
