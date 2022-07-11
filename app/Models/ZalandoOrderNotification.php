@@ -24,4 +24,9 @@ class ZalandoOrderNotification extends Model
     {
         return $this->hasMany(ZalandoItemNotification::class);
     }
+
+    public function delivery_details()
+    {
+        return $this->hasOne(ZalandoDeliveryDetailsNotification::class);
+    }
 }

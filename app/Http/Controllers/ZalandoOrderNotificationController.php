@@ -48,7 +48,7 @@ class ZalandoOrderNotificationController extends Controller
     {
         $this->model = $this->model->create($request->all());
         $this->model->items()->createMany($request->items);
-        
+        $this->model->delivery_details()->create($request->delivery_details);
     }
 
     /**
