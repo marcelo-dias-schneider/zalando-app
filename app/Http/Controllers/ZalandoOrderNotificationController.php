@@ -15,7 +15,7 @@ class ZalandoOrderNotificationController extends Controller
      */
     public function __construct(ZalandoOrderNotification $order_notification)
     {
-        $this->order_notification = $order_notification;
+        $this->model = $order_notification;
     }
 
     /**
@@ -46,7 +46,8 @@ class ZalandoOrderNotificationController extends Controller
      */
     public function store(StoreZalandoOrderNotificationRequest $request)
     {
-        $this->order_notification->create($request->all());
+        $this->model = $this->model->create($request->all());
+        $this->model->items()->createMany($request->items);
         
     }
 

@@ -19,4 +19,9 @@ class ZalandoOrderNotification extends Model
         'store_id',
         'timestamp',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(ZalandoItemNotification::class);
+    }
 }
