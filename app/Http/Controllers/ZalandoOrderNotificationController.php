@@ -52,7 +52,7 @@ class ZalandoOrderNotificationController extends Controller
         if ($request->customer_billing_address) $this->model->customer_billing_address()->create($request->customer_billing_address);
         return response()->json([
             "success" => "[API] notification received successfully"
-        ], 401);
+        ], 200);
     }
 
     /**
