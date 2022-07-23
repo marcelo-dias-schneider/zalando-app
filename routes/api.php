@@ -21,7 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['authorization.basic.auth'])->prefix('/orders')->group(function () {
     Route::post('/notification', [ZalandoOrderNotificationController::class, 'store']);
-});
-Route::middleware(['authorization.basic.auth'])->prefix('/orders')->group(function () {
     Route::get('/notification/{order_number}', [ZalandoOrderNotificationController::class, 'retrieve']);
 });
