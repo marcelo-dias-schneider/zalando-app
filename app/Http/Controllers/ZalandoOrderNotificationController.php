@@ -50,7 +50,7 @@ class ZalandoOrderNotificationController extends Controller
         $this->model = $this->model->create(
             array_merge(
                 $request->all(),
-                $request->attributes
+                ['authorization_basic_auth_id' => $request->get('authorization_basic_auth_id')]
             )
         );
         $this->model->items()->createMany($request->items);
