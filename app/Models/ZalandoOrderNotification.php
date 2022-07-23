@@ -17,6 +17,7 @@ class ZalandoOrderNotification extends Model
         'order_number',
         'state',
         'store_id',
+        'authorization_basic_auth_id',
         'timestamp',
     ];
 
