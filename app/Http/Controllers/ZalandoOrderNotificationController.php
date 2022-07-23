@@ -30,6 +30,24 @@ class ZalandoOrderNotificationController extends Controller
     }
 
     /**
+     * Retrieve the resource by id.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function retrieve($order_number)
+    {
+        $notifications = $this->model
+            ->with('items')
+            ->with('delivery_details')
+            ->with('customer_billing_address')
+            ->where('order_number', '=', $order_number)
+            ->get();
+
+        return response()->json(['notifications' => $notifications], 200);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
