@@ -20,7 +20,7 @@ class AuthorizationBasicAuth
         $basic_auth = $request->header('authorization');
         $app = AuthorizationBasicAuthModel::firstWhere('basic', $basic_auth);
         if (isset($app->basic)) {
-            $request->attributes->add(['basic_auth_id' => $app['id']]);
+            $request->attributes->add(['authorization_basic_auth_id' => $app['id']]);
             return $next($request);
         } else {
             return response()->json([
