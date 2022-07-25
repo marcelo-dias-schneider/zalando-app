@@ -48,6 +48,41 @@ class ZalandoOrderNotificationController extends Controller
     }
 
     /**
+     * Retrieve the resource by id.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function retrieve_orders(Request  $request)
+    {
+        $orders = $this->model->limit(100);
+        if ($request->has('limit')) {
+            $orders = $orders->limit($request->limit);
+        }
+        if ($request->has('created_at_min') && $request->has('created_at_max')) {
+            $orders = $orders->whereBetween(
+                'created_at',
+                [
+                    $request->created_at_min,
+                    $request->created_at_max
+                ]
+            );
+        }
+        if ($request->has('fields')) {
+            $fields = explode(',', $request->fields);
+            $orders = $orders->select($fields);
+        }
+        if ($request->has('state')) {
+            $state = explode(',', $request->state);
+            $orders = $orders->whereIn('state', $state);
+        }
+        $orders = $orders->get();
+        return response()->json([
+            "orders" => $orders->toArray()
+        ], 200);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
