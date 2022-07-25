@@ -123,4 +123,37 @@ class ZalandoOrderNotificationController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the duplicated resource storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sync(Request  $request, $order_number)
+    {
+        // $order_numbers = $this->model->distinct()->get(['order_number']);
+        // dd($order_numbers->toArray());
+
+        $diff_notifications = [];
+        $notifications = $this->model
+            // ->with('items')
+            // ->with('delivery_details')
+            // ->with('customer_billing_address')
+            ->where('order_number', '=', $order_number)
+            ->get();
+        foreach ($notifications as $key => $notification) {
+            $diff_notifications[$order_number][$key] = array_diff($notification->toArray(), $notifications[0]->toArray());
+            $diff_notification = array_diff($notification->toArray(), $notifications[0]->toArray());
+            if (
+                isset($diff_notification['id']) &&
+                isset($diff_notification['created_at']) &&
+                isset($diff_notification['updated_at']) &&
+                count($diff_notification) == 3
+            ) {
+                $notification->delete();
+            }
+        }
+        return response()->json(['diff_notifications' => $diff_notifications], 200);
+    }
 }
