@@ -76,6 +76,14 @@ class ZalandoOrderNotificationController extends Controller
             $state = explode(',', $request->state);
             $orders = $orders->whereIn('state', $state);
         }
+        if ($request->has('ids')) {
+            $ids = explode(',', $request->ids);
+            $orders = $orders->whereIn('id', $ids);
+        }
+        if ($request->has('order_numbers')) {
+            $order_numbers = explode(',', $request->order_numbers);
+            $orders = $orders->whereIn('order_number', $order_numbers);
+        }
         $orders = $orders->get();
         return response()->json([
             "orders" => $orders->toArray()
