@@ -35,4 +35,9 @@ class ZalandoOrderNotification extends Model
     {
         return $this->hasOne(ZalandoCustomerBillingAddressNotification::class);
     }
+
+    public function authorization_basic_auth()
+    {
+        return $this->belongsTo(AuthorizationBasicAuth::class);
+    }
 }

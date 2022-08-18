@@ -80,6 +80,9 @@ class ZalandoOrderNotificationController extends Controller
                 $orders = $orders->with('customer_billing_address');
             }
         }
+        if ($request->has('authorization_basic_auth')) {
+            $orders = $orders->with("authorization_basic_auth:id,app");
+        }
         if ($request->has('created_at_min') && $request->has('created_at_max')) {
             $orders = $orders->whereBetween(
                 'created_at',

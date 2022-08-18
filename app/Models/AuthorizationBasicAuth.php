@@ -18,4 +18,9 @@ class AuthorizationBasicAuth extends Model
         'password',
         'basic'
     ];
+
+    protected $hidden = [
+        'password',
+        'basic',
+    ];
 }
