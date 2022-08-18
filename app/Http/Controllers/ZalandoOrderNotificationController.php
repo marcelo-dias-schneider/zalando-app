@@ -60,10 +60,25 @@ class ZalandoOrderNotificationController extends Controller
             $orders = $orders->limit($request->limit);
         }
         if ($request->has('items')) {
-            $orders = $orders->with('items');
+            if ($request->items) {
+                $orders = $orders->with("items:zalando_order_notification_id,$request->items");
+            } else {
+                $orders = $orders->with('items');
+            }
         }
-        if ($request->has('items_fields')) {
-            $orders = $orders->with("items:zalando_order_notification_id,$request->items_fields");
+        if ($request->has('delivery_details')) {
+            if ($request->delivery_details) {
+                $orders = $orders->with("delivery_details:zalando_order_notification_id,$request->delivery_details");
+            } else {
+                $orders = $orders->with('delivery_details');
+            }
+        }
+        if ($request->has('customer_billing_address')) {
+            if ($request->customer_billing_address) {
+                $orders = $orders->with("customer_billing_address:zalando_order_notification_id,$request->customer_billing_address");
+            } else {
+                $orders = $orders->with('customer_billing_address');
+            }
         }
         if ($request->has('created_at_min') && $request->has('created_at_max')) {
             $orders = $orders->whereBetween(
