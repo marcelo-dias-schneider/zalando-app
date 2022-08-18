@@ -105,6 +105,10 @@ class ZalandoOrderNotificationController extends Controller
             $order_numbers = explode(',', $request->order_numbers);
             $orders = $orders->whereIn('order_number', $order_numbers);
         }
+        if ($request->has('authorization_basic_auth_ids')) {
+            $authorization_basic_auth_ids = explode(',', $request->authorization_basic_auth_ids);
+            $orders = $orders->whereIn('authorization_basic_auth_id', $authorization_basic_auth_ids);
+        }
         $orders = $orders->get();
         return response()->json([
             "orders" => $orders->toArray()
