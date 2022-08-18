@@ -133,6 +133,13 @@ class ZalandoOrderNotificationController extends Controller
      */
     public function store(StoreZalandoOrderNotificationRequest $request)
     {
+        $this->model = $this->model->where('event_id', $request->get('event_id'))->first();
+        if ($this->model) {
+            return response()->json([
+                "success" => "[API] notification already received"
+            ], 200);
+        }
+        
         $this->model = $this->model->create(
             array_merge(
                 $request->all(),
