@@ -55,7 +55,7 @@ class ZalandoOrderNotificationController extends Controller
      */
     public function retrieve_orders(Request  $request)
     {
-        $orders = $this->model->limit(1000);
+        $orders = $this->model;
         if ($request->has('limit')) {
             $orders = $orders->limit($request->limit);
         }
